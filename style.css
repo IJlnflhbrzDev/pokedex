@@ -78,6 +78,10 @@ h1 {
 .pokemon .info {
 	margin-top: -10px;
 }
+#poke_detail_container {
+	display: flex;
+	justify-content: center;
+}
 .pokemon_detail {
 	position: absolute;
 	top:-36px;
@@ -121,7 +125,10 @@ h1 {
 #poke_detail_container .pokemon {
 	 box-shadow: none;
 }
-
+.bx-heart {
+	cursor: pointer;
+	color: white;
+}
 @media (max-width : 768px) {
      .poke-container  {
                grid-template-columns: repeat(auto-fit, minmax( 1fr));

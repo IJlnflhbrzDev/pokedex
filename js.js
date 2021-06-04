@@ -1,5 +1,6 @@
 const poke_container = document.getElementById('poke_container');
 const poke_detail_container = document.getElementById('poke_detail_container');
+const navbar = document.querySelector('.navbar');
 
 // LENGTH POKEMON (OPSIONAL)
 const pokemons_number = 25;
@@ -49,6 +50,7 @@ async function createDetailPokemonCard(pokemon) {
 	const pokemonEl = document.createElement('div');
 	pokemonEl.setAttribute("id", `detail/${pokemon.name}/${pokemon.id}`);
 	const isDdefaultPokemon = pokemon.varieties[0].pokemon.url;
+
 	fetch(isDdefaultPokemon)
 		.then(resJson => resJson.json())
 		.then(item => {
@@ -95,38 +97,65 @@ async function createDetailPokemonCard(pokemon) {
 			</div>
 			<div class="tab-pane fade" id="Base-stats" role="tabpanel" aria-labelledby="Base-stats-tab">
 				<ul class="list-group list-group-flush">
-					<li class="list-group-item eggCycle">
-						<span class="mr-5 text-muted">Hp</span>
+					<li class="list-group-item">
+						<span class="mr-5 text-muted text-capitalize">${item.stats[0].stat.name}</span>
 						<span text-muted">${item.stats[0].base_stat}</span>
+					</li>
+					<li class="list-group-item">
+						<span class="mr-5 text-muted text-capitalize">${item.stats[1].stat.name}</span>
+						<span text-muted">${item.stats[1].base_stat}</span>
+					</li>
+					<li class="list-group-item">
+						<span class="mr-5 text-muted text-capitalize">${item.stats[2].stat.name}</span>
+						<span text-muted">${item.stats[2].base_stat}</span>
+					</li>
+					<li class="list-group-item">
+						<span class="mr-5 text-muted text-capitalize">${item.stats[3].stat.name}</span>
+						<span text-muted">${item.stats[3].base_stat}</span>
+					</li>
+					<li class="list-group-item">
+						<span class="mr-5 text-muted text-capitalize">${item.stats[4].stat.name}</span>
+						<span text-muted">${item.stats[4].base_stat}</span>
+					</li>
+					<li class="list-group-item">
+						<span class="mr-5 text-muted text-capitalize">${item.stats[5].stat.name}</span>
+						<span text-muted">${item.stats[5].base_stat}</span>
 					</li>
 					<h6 style="margin-left: 16px;margin-top: 14px;font-weight: bold; font-size:21px;">Type defeneses</h6>
 
 				</ul>
 			</div>
-		 `
 
-			console.log(item);
-			//  GET EGG
+		 `
+			const Type = document.querySelector('.type').innerHTML += `	<span class=" font-weight-bold text-capitalize">${item.types[0].type.name}</span>`;
 			const Egg = async item => await fetch(item.species.url).then(resJson => resJson.json()).then(item => {
 				document.querySelector('.eggGroups').innerHTML += `	<span class=" font-weight-bold text-capitalize">${item.egg_groups[0].name}</span>`
 			})
 
 			Egg(item)
 
-
+			console.log(item.types[0].type.name);
 		});
 
 	const PokemonsTemplateDetail = `
-					<div class="">
+
 							<div class="col-lg-6">
 								<div class="card pokemon_img ${pokemon.color.name}"
 									style=" border-radius:30px 30px 0 0 ;">
+
+										<nav class="navbar navbar-expand-xxl navbar-light">
+											<div class="container">
+												<a class="navbar-brand" href="index.html"><i class='bx bxs-left-arrow-alt bx-md text-white'></i></a>
+												<i class='bx bx-heart bx-sm' id="btnWhitelist" pokemon-id="${pokemon.id}" onclick="SavedData()"></i>
+											</div>
+       								 	</nav>
+
 									<div class="card-body overflow-hidden text-white">
 										<div class="row justify-content-between ">
 											<div class="col-6">
-												<h5 class="card-title text-capitalize">${pokemon.name}</h5>
+												<h5 class="card-title text-capitalize h2" style="margin-left : 5px;">${pokemon.name}</h5>
 												<div class="type">
-													<span>${pokemon.name}</span>
+
 												</div>
 											</div>
 											<div class="col-6 text-right font-weight-bold">
@@ -155,21 +184,33 @@ async function createDetailPokemonCard(pokemon) {
 											</li>
 										</ul>
 										<div class="tab-content" id="myTabContent${pokemon.id}">
-											<div class="tab-pane fade " id="about${pokemon.id}" role="tabpanel" aria-labelledby="home-tab">Hello 1</div>
-											<div class="tab-pane fade" id="Base-stats" role="tabpanel" aria-labelledby="Base-stats-tab">Hello 2</div>
+											<div class="tab-pane fade " id="about${pokemon.id}" role="tabpanel" aria-labelledby="home-tab"></div>
+											<div class="tab-pane fade" id="Base-stats" role="tabpanel" aria-labelledby="Base-stats-tab"></div>
+
+
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
 
-    ` ;
+    `
+		;
 
 	// MEMBERIKAN GAMBAR PADA SETIAP CARD POKEMON
 	pokemonEl.innerHTML = PokemonsTemplateDetail;
 	poke_container.innerHTML = '';
+	navbar.innerHTML = '';
 	poke_detail_container.append(pokemonEl)
 
+}
+
+const SavedData = () => {
+	let tag = document.getElementById("btnWhitelist");
+	let pokemonID = tag.getAttribute("pokemon-id");
+	let pokemonList = JSON.parse(window.sessionStorage.getItem("pokemon_whitelist"));
+	// console.log(pokemonList);
+	pokemonList.push(pokemonID);
+	sessionStorage.setItem("pokemon_whitelist", JSON.stringify(pokemonList));
 }
 
 
@@ -209,3 +250,4 @@ function createPokemonCard(pokemon) {
 
 
 fetchPokemons();
+
