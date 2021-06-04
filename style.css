@@ -82,12 +82,15 @@ h1 {
 	position: absolute;
 	top:-36px;
 	border-radius: 30px;
+	width: 100%;
+	overflow: hidden;
 }
 .pokeball {
 	position: absolute;
     right: -76px;
     filter: opacity(0.2);
     top: 0px;
+    width: 100%;
 }
  .type{
      position: relative;
@@ -110,10 +113,9 @@ h1 {
 }
 
 
-
-
-
-
+.pokemon_detail,.pokemon_img {
+	width: 30rem;
+}
 
 
 #poke_detail_container .pokemon {
@@ -126,5 +128,10 @@ h1 {
      }
 .pokemon {
       width: auto;
+}
+
+.pokemon_detail,.pokemon_img {
+	width: 100%;
+	overflow: hidden;
 }
 }

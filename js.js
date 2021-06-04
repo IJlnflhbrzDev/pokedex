@@ -117,12 +117,12 @@ async function createDetailPokemonCard(pokemon) {
 		});
 
 	const PokemonsTemplateDetail = `
-					<div class="row flex-column">
-							<div class="col-6">
+					<div class="">
+							<div class="col-lg-6">
 								<div class="card pokemon_img ${pokemon.color.name}"
-									style="width: 30rem; border-radius:30px 30px 0 0 ;">
+									style=" border-radius:30px 30px 0 0 ;">
 									<div class="card-body overflow-hidden text-white">
-										<div class="row justify-content-between align-items-center">
+										<div class="row justify-content-between ">
 											<div class="col-6">
 												<h5 class="card-title text-capitalize">${pokemon.name}</h5>
 												<div class="type">
@@ -143,8 +143,8 @@ async function createDetailPokemonCard(pokemon) {
 									</div>
 								</div>
 							</div>
-							<div class="col-6">
-								<div class="card pokemon_detail" style="width: 30rem;">
+							<div class="col-lg-6 ">
+								<div class="card pokemon_detail">
 									<div class="card-body">
 										<ul class="nav nav-tabs border-0" id="myTab" role="tablist">
 											<li class="nav-item" role="presentation">
@@ -167,6 +167,7 @@ async function createDetailPokemonCard(pokemon) {
 
 	// MEMBERIKAN GAMBAR PADA SETIAP CARD POKEMON
 	pokemonEl.innerHTML = PokemonsTemplateDetail;
+	poke_container.innerHTML = '';
 	poke_detail_container.append(pokemonEl)
 
 }
@@ -200,6 +201,8 @@ function createPokemonCard(pokemon) {
         </div>
     `;
 	pokemonEl.innerHTML = PokemonsTemplate;
+	poke_detail_container.innerHTML = '';
+
 	poke_container.appendChild(pokemonEl);
 }
 
