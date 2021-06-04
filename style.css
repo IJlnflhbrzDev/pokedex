@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400&display=swap');
+
+	.red {background-color: #fd457c;}
+	.green {background-color: #1ecea2;}
+	.yellow {background-color: #ffc107;}
+	.blue {background-color: #77BCFD;}
+	.ground {background-color: #f4e7da;}
+	.rock {background-color: #d5d5d4;}
+	.fairy {background-color: #fceaff;}
+	.poison {background-color: #800080;}
+	.dragon {background-color: #97b3e6;}
+	.psychic {background-color: #eaeda1;}
+	.brown {background-color: brown;}
+	.purple {background-color: #800080;}
+	.fighting {background-color: #E6E0D4;}
+	.normal {background-color: #800080;}
+* {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Lato';
+	overflow-x: hidden;
+}
+
+h1 {
+	font-weight: bold;
+}
+
+.poke-container {
+	display: grid;
+     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+     justify-content: center;
+     align-items: center;
+     grid-gap: 5px;
+}
+
+.navbar-toggler {
+	outline: none;
+	border: none;
+	position: relative;
+}
+.pokeball-toggler {
+	width: 202px;
+	position: absolute;
+	right: -73px;
+	top: -81px;
+	z-index: -2;
+	filter: opacity(0.2);
+}
+/* article card all pokemon  */
+.pokemon {
+     display: flex;
+     flex-direction: row-reverse;
+     justify-content: space-between;
+     align-items: flex-start;
+	border-radius: 20px;
+	box-shadow: 0 3px 15px rgba(100, 100, 100, 0.5);
+	margin: 5px;
+	padding: 20px;
+
+}
+
+.pokemon .img-container {
+	background-color: rgba(255, 255, 255, 0.6);
+	border-radius: 50%;
+	max-width: 120px;
+	height: 120px;
+	text-align: center;
+}
+
+.pokemon .img-container img {
+	margin-top: 20px;
+	max-width: 90%;
+}
+
+.pokemon .info {
+	margin-top: -10px;
+}
+.pokemon_detail {
+	position: absolute;
+	top:-36px;
+	border-radius: 30px;
+}
+.pokeball {
+	position: absolute;
+    right: -76px;
+    filter: opacity(0.2);
+    top: 0px;
+}
+ .type{
+     position: relative;
+     margin-left: 6px;
+     text-transform: capitalize;
+     background-color: rgba(231, 226, 226, 0.397);
+	border-radius: 10px;
+	font-size: 20px;
+	padding: 5px 10px;
+     color: white;
+     max-width: 80%;
+     text-align: center;
+}
+
+.pokemon .name a{
+	margin: 15px 0 7px;
+	letter-spacing: 1px;
+     color: white;
+	cursor: pointer;
+}
+
+
+
+
+
+
+
+
+#poke_detail_container .pokemon {
+	 box-shadow: none;
+}
+
+@media (max-width : 768px) {
+     .poke-container  {
+               grid-template-columns: repeat(auto-fit, minmax( 1fr));
+     }
+.pokemon {
+      width: auto;
+}
+}
