@@ -45,7 +45,13 @@ const getDetailPokemon = async url => {
 	createDetailPokemonCard(pokemonDetail);
 }
 
+
+
 async function createDetailPokemonCard(pokemon) {
+	const Gender = async () => await fetch(`https://pokeapi.co/api/v2/gender/${pokemon.id}`).then(resJson => resJson.json()).then(item => {
+		let valGender = document.querySelector('.gender').innerHTML += `	<span class=" font-weight-bold text-capitalize">${item.name}</span>`
+	})
+	Gender();
 
 	const pokemonEl = document.createElement('div');
 	pokemonEl.setAttribute("id", `detail/${pokemon.name}/${pokemon.id}`);
@@ -83,14 +89,14 @@ async function createDetailPokemonCard(pokemon) {
 					<h6 style="margin-left: 16px;margin-top: 14px;font-weight: bold; font-size:21px;">Breeding</h6>
 					<li class="list-group-item gender">
 						<span class="mr-5 text-muted">Gender</span>
-						<span class="gende_value"></span>
+
 					</li>
 					<li class="list-group-item eggGroups">
 						<span class="mr-5 text-muted">Egg Groups</span>
 					</li>
 					<li class="list-group-item eggCycle">
 						<span class="mr-5 text-muted">Egg Cycle</span>
-						<span text-muted">Grass</span>
+						<span class="eggCycle"></span>
 					</li>
 
 				</ul>
@@ -121,81 +127,74 @@ async function createDetailPokemonCard(pokemon) {
 						<span class="mr-5 text-muted text-capitalize">${item.stats[5].stat.name}</span>
 						<span text-muted">${item.stats[5].base_stat}</span>
 					</li>
-					<h6 style="margin-left: 16px;margin-top: 14px;font-weight: bold; font-size:21px;">Type defeneses</h6>
+						<h6 style="margin-left: 16px;margin-top: 14px;font-weight: bold; font-size:21px;">Type defeneses</h6>
+						<p class="text-muted" style="margin-left:19px;">${pokemon.flavor_text_entries[0].flavor_text}</p >
+				</ul >
+			</div >
 
-				</ul>
-			</div>
-
-		 `
-			const Type = document.querySelector('.type').innerHTML += `	<span class=" font-weight-bold text-capitalize">${item.types[0].type.name}</span>`;
-			const Egg = async item => await fetch(item.species.url).then(resJson => resJson.json()).then(item => {
-				document.querySelector('.eggGroups').innerHTML += `	<span class=" font-weight-bold text-capitalize">${item.egg_groups[0].name}</span>`
-			})
-
+				`
+			const Type = document.querySelector('.type').innerHTML += `	<span class=" font-weight-bold text-capitalize"> ${item.types[0].type.name}</span > `;
+			const eggCycle = document.querySelector('.eggCycle').innerHTML += `	<span  class=" font-weight-bold text-capitalize" > ${item.types[0].type.name}</span > `;
+			const Egg = async item => await fetch(item.species.url).then(resJson => resJson.json()).then(item => { document.querySelector('.eggGroups').innerHTML += `<span span class=" font-weight-bold text-capitalize" > ${item.egg_groups[0].name}</span > ` })
 			Egg(item)
-
-			console.log(item.types[0].type.name);
 		});
 
 	const PokemonsTemplateDetail = `
 
-							<div class="col-lg-6">
-								<div class="card pokemon_img ${pokemon.color.name}"
-									style=" border-radius:30px 30px 0 0 ;">
+				<div div class="col-lg-6" >
+					<div class="card pokemon_img ${pokemon.color.name}"
+						style=" border-radius:30px 30px 0 0 ;">
 
-										<nav class="navbar navbar-expand-xxl navbar-light">
-											<div class="container">
-												<a class="navbar-brand" href="index.html"><i class='bx bxs-left-arrow-alt bx-md text-white'></i></a>
-												<i class='bx bx-heart bx-sm' id="btnWhitelist" pokemon-id="${pokemon.id}" onclick="SavedData()"></i>
-											</div>
-       								 	</nav>
+						<nav class="navbar navbar-expand-xxl navbar-light">
+							<div class="container">
+								<a class="navbar-brand" href="index.html"><i class='bx bxs-left-arrow-alt bx-md text-white'></i></a>
+								<i class='bx bx-heart bx-sm' id="btnWhitelist" pokemon-id="${pokemon.id}" onclick="SavedData()"></i>
+							</div>
+						</nav>
 
-									<div class="card-body overflow-hidden text-white">
-										<div class="row justify-content-between ">
-											<div class="col-6">
-												<h5 class="card-title text-capitalize h2" style="margin-left : 5px;">${pokemon.name}</h5>
-												<div class="type">
-
-												</div>
-											</div>
-											<div class="col-6 text-right font-weight-bold">
-												<span>#00${pokemon.id}</span>
-											</div>
-											<div class="col d-flex justify-content-center align-items-center">
-												<img src="https://icon-library.com/images/pokeball-icon-transparent/pokeball-icon-transparent-5.jpg"
-													class="w-75 text-white pokeball">
-												<img src="https://pokeres.bastionbot.org/images/pokemon/${pokemon.id}.png" class="w-50"
-													style="z-index: 999;">
-											</div>
-										</div>
+						<div class="card-body overflow-hidden text-white">
+							<div class="row justify-content-between ">
+								<div class="col-6">
+									<h5 class="card-title text-capitalize h2" style="margin-left : 5px;">${pokemon.name}</h5>
+									<div class="type">
 
 									</div>
 								</div>
-							</div>
-							<div class="col-lg-6 ">
-								<div class="card pokemon_detail">
-									<div class="card-body">
-										<ul class="nav nav-tabs border-0" id="myTab" role="tablist">
-											<li class="nav-item" role="presentation">
-												<a class="nav-link active" id="about-tab" data-toggle="tab" href="#about${pokemon.id}" role="tab" aria-controls="about" aria-selected="true">About</a>
-											</li>
-											<li class="nav-item" role="presentation">
-												<a class="nav-link" id="base-stats-tab" data-toggle="tab" href="#Base-stats" role="tab" aria-controls="Base-stats" aria-selected="false">Base stats</a>
-											</li>
-										</ul>
-										<div class="tab-content" id="myTabContent${pokemon.id}">
-											<div class="tab-pane fade " id="about${pokemon.id}" role="tabpanel" aria-labelledby="home-tab"></div>
-											<div class="tab-pane fade" id="Base-stats" role="tabpanel" aria-labelledby="Base-stats-tab"></div>
-
-
+								<div class="col-6 text-right font-weight-bold">
+									<span>#00${pokemon.id}</span>
+								</div>
+								<div class="col d-flex justify-content-center align-items-center">
+									<img src="https://icon-library.com/images/pokeball-icon-transparent/pokeball-icon-transparent-5.jpg"
+										class="w-75 text-white pokeball">
+										<img src="https://pokeres.bastionbot.org/images/pokemon/${pokemon.id}.png" class="w-50"
+											style="z-index: 999;">
+											</div>
 										</div>
+
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6 ">
+							<div class="card pokemon_detail">
+								<div class="card-body">
+									<ul class="nav nav-tabs border-0" id="myTab" role="tablist">
+										<li class="nav-item" role="presentation">
+											<a class="nav-link active" id="about-tab" data-toggle="tab" href="#about${pokemon.id}" role="tab" aria-controls="about" aria-selected="true">About</a>
+										</li>
+										<li class="nav-item" role="presentation">
+											<a class="nav-link" id="base-stats-tab" data-toggle="tab" href="#Base-stats" role="tab" aria-controls="Base-stats" aria-selected="false">Base stats</a>
+										</li>
+									</ul>
+									<div class="tab-content" id="myTabContent${pokemon.id}">
+										<div class="tab-pane fade " id="about${pokemon.id}" role="tabpanel" aria-labelledby="home-tab"></div>
+										<div class="tab-pane fade" id="Base-stats" role="tabpanel" aria-labelledby="Base-stats-tab"></div>
 									</div>
 								</div>
 							</div>
+						</div>
 
     `
 		;
-
 	// MEMBERIKAN GAMBAR PADA SETIAP CARD POKEMON
 	pokemonEl.innerHTML = PokemonsTemplateDetail;
 	poke_container.innerHTML = '';
@@ -203,16 +202,6 @@ async function createDetailPokemonCard(pokemon) {
 	poke_detail_container.append(pokemonEl)
 
 }
-
-const SavedData = () => {
-	let tag = document.getElementById("btnWhitelist");
-	let pokemonID = tag.getAttribute("pokemon-id");
-	let pokemonList = JSON.parse(window.sessionStorage.getItem("pokemon_whitelist"));
-	// console.log(pokemonList);
-	pokemonList.push(pokemonID);
-	sessionStorage.setItem("pokemon_whitelist", JSON.stringify(pokemonList));
-}
-
 
 function createPokemonCard(pokemon) {
 	const pokemonEl = document.createElement('article');
@@ -230,21 +219,27 @@ function createPokemonCard(pokemon) {
 
 	const PokemonsTemplate = `
         <div class="img-container">
-            <img src="https://pokeres.bastionbot.org/images/pokemon/${pokemon.id}.png" alt="${name}" />
-        </div>
-        <div class="info">
-            <h3 class="name" onclick='getDetailPokemon("${(species)}")'>
-		  	<a href="#detail/${name}/${pokemon.id}">${name}</a>
-		  </h3>
-            <div class="type">
-                    <span>${type}</span>
-            </div>
-        </div>
+							<img src="https://pokeres.bastionbot.org/images/pokemon/${pokemon.id}.png" alt="${name}" />
+						</div>
+						<div class="info">
+							<h3 class="name" onclick='getDetailPokemon("${(species)}")'>
+								<a href="#detail/${name}/${pokemon.id}">${name}</a>
+							</h3>
+							<div class="type">
+								<span>${type}</span>
+							</div>
+						</div>
     `;
 	pokemonEl.innerHTML = PokemonsTemplate;
 	poke_detail_container.innerHTML = '';
 
 	poke_container.appendChild(pokemonEl);
+	// if (pokemon.types[1].type) {
+	// 	console.log(pokemon.types[1].type)
+	// } else if (pokemon.types[0].type) {
+	// 	console.log(pokemon.types[0].type)
+	// }
+
 }
 
 
