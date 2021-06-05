@@ -1,6 +1,10 @@
 const poke_container = document.getElementById('poke_container');
 const poke_detail_container = document.getElementById('poke_detail_container');
 const navbar = document.querySelector('.navbar');
+window.addEventListener('load', function () {
+	const containerloader = document.querySelector('.loader-wrapper');
+	containerloader.style.display = "none";
+});
 
 // LENGTH POKEMON (OPSIONAL)
 const pokemons_number = 25;
